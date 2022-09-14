@@ -21,7 +21,7 @@ $ apt install ffmpeg
 ```
 Install python dependencies by (ignore if you start from .yaml): 
 ```
-$ pip install sklearn pandas tqdm librosa
+$ pip install scikit-learn==0.22 pandas tqdm librosa
 ```
 If using conda, install pytorch by (ignore if you start from .yaml):
 ```
