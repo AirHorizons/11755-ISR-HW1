@@ -39,7 +39,7 @@ For this task we will provide code and instructions to extract MFCC-Bag-of-Featu
 
 Firstly, let's create the folders to save extracted features, audios and models:
 ```
-$ mkdir wav/ mfcc/ bof/ mp3/ weights/ snf/
+$ mkdir wav/ mfcc/ bof/ mp3/ snf/
 ```
 
 Then extract the audio from the videos:
