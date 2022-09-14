@@ -19,11 +19,11 @@ Install FFMPEG by:
 ```
 $ apt install ffmpeg
 ```
-Install python dependencies by:
+Install python dependencies by (ignore if you start from .yaml): 
 ```
 $ pip install sklearn pandas tqdm librosa
 ```
-If using conda, install pytorch by:
+If using conda, install pytorch by (ignore if you start from .yaml):
 ```
 $ conda install pytorch torchvision torchaudio -c pytorch
 ```
@@ -56,7 +56,7 @@ Tip 2: It's possible that you can't extract audio files from all videos here, bu
 
 Then run OpenSMILE to get MFCCs into CSV files. We will directly run the binaries of OpenSMILE (no need to install):
 ```
-$ for file in wav/*;do filename=$(basename $file .wav); /home/kevinq/repos/11775-hws/spring2022/hw1/tools/opensmile-3.0-linux-x64/bin/SMILExtract -C config/MFCC12_0_D_A.conf -I ${file} -O mfcc/${filename}.mfcc.csv;done
+$ for file in wav/*;do filename=$(basename $file .wav); ./tools/opensmile-3.0-linux-x64/bin/SMILExtract -C config/MFCC12_0_D_A.conf -I ${file} -O mfcc/${filename}.mfcc.csv;done
 ```
 
 The above two steps may take 1-2 hours, depends on your device settings.
