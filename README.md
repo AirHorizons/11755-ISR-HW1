@@ -134,7 +134,7 @@ The performance already get boosted a lot, however, it's far from an acceptable 
 
 You can then submit the test outputs to the leaderboard to evaulate your implementation:
 ```
-https://www.kaggle.com/c/11775-s22-hw1
+https://www.kaggle.com/competitions/hw1-audio-based-med
 ```
 We use classification accuracy as the evaluation metric. Please refer to the `test_for_students.csv` file for submission format. You are expected to achieve 0.3+ for Task 2, 0.5+ for Task 3, and 0.7+ for Task 4.
 
