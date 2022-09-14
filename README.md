@@ -2,7 +2,12 @@
 In this homework, we will perform a video classification task using audio-only features. Since this is the first and preliminary assignment of this course, you will also learn some basic steps of sklearn and pytorch.
 
 ## Environment Settings
-We suggest using [conda](https://docs.conda.io/en/latest/) to manage your packages. You can quickly check or install the required packages from [environment.yml](environment.yml)
+We suggest using [conda](https://docs.conda.io/en/latest/) to manage your packages. You can quickly check or install the required packages from `environment.yaml`.
+
+If you use conda, you should easilly install the packages through:
+```
+conda env create -f environment.yaml
+```
 
 Major Depdencies we will use in this hw are: FFMPEG, OpenSMILE, Python, sklearn, pandas, pytorch, librosa
 
@@ -12,11 +17,11 @@ $ tar -zxvf opensmile-3.0-linux-x64.tar.gz
 ```
 Install FFMPEG by:
 ```
-$ sudo apt install ffmpeg
+$ apt install ffmpeg
 ```
 Install python dependencies by:
 ```
-$ sudo pip install sklearn pandas tqdm librosa
+$ pip install sklearn pandas tqdm librosa
 ```
 If using conda, install pytorch by:
 ```
@@ -25,7 +30,7 @@ $ conda install pytorch torchvision torchaudio -c pytorch
 For the last two parts of this hw, using gpu version of pytorch will significantly accelerate the feature extraction procedure. Please refer to [here](https://pytorch.org/get-started/locally/) for more detailed settings.
 
 ## Data and Labels
-Please download the data from [Google Drive](https://drive.google.com/file/d/1WEINPdvQ1ZUELxaXlhHcvoOjEML8gYYY/view?usp=sharing) or [AWS S3](https://cmu-11775-vm.s3.amazonaws.com/spring2022/11775_s22_data.zip). Then unzip it and put the videos under "$path_to_this_repo/videos", and labels under "$path_to_this_repo/labels". You can either directly download the data to this folder or in anywhere else then build a [soft link](https://linuxhint.com/create_symbolic_link_ubuntu/)
+Please download the data from [AWS S3](https://cmu-11775-vm.s3.amazonaws.com/spring2022/11775_s22_data.zip). Then unzip it and put the videos under "$path_to_this_repo/videos", and labels under "$path_to_this_repo/labels". You can either directly download the data to this folder or in anywhere else then build a [soft link](https://linuxhint.com/create_symbolic_link_ubuntu/)
 
 The `.zip` file should include the following:
 1. `video/` folder with 8249 videos in MP4 format
@@ -75,14 +80,14 @@ $ python scripts/get_bof.py ./weights/kmeans.50.model 50 videos.name.lst --mfcc_
 After Task 1, you should already extracted bof features under "./bof". We will use the features to train classifier. You will use sklearn to implement and train the classifiers. Different from previous task, we leave some blanks in the code and you need to finish them before running it. A `NotImplementedError` will be raised to notify you that you have some blanks didn't finished. Please remember to comment/remove these `NotImplementedError` lines after finishing the lines.
 
 ### SVM classifier
-You need to fill in the blank left in [train_svm_multiclass.py](train_svm_multiclass.py). The provided code has already loaded features and labels from files. You will need to convert them to a sklearn supported type and initialize and train the SVM classifier. The initial parameters you might use are: cache_size=2000, decision_function_shape='ovr', kernel="rbf". You are free to design your own initial params.
+You need to fill in the blank left in `train_svm_multiclass.py`. The provided code has already loaded features and labels from files. You will need to convert them to a sklearn supported type and initialize and train the SVM classifier. The initial parameters you might use are: cache_size=2000, decision_function_shape='ovr', kernel="rbf". You are free to design your own initial params.
 
 Then you can train the model by:
 ```
 $ python train_svm_multiclass.py bof/ 50 labels/train_val.csv weights/mfcc-50.svm.model
 ```
 
-Similarly, you also need to fill in the blank left in [test_svm_multiclass.py](test_svm_multiclass.py). It requires you to load and get scores with the trained model.
+Similarly, you also need to fill in the blank left in `test_svm_multiclass.py`. It requires you to load and get scores with the trained model.
 
 Then get your predictions on test set by:
 ```
@@ -91,14 +96,14 @@ $ python test_svm_multiclass.py weights/mfcc-50.svm.model bof/ 50 labels/test_fo
 mfcc-50.svm.csv is one of the files you need to upload in your final submission.
 
 ### MLP classifier
-Similar to what you did in the previous section, you need to fill in the blank left in [train_mlp.py](train_mlp.py). The initial parameters you might use are: chidden_layer_sizes=(512),activation="relu",solcer="adam",alpha=1e-3. You are free to design your own initial params.
+Similar to what you did in the previous section, you need to fill in the blank left in `train_mlp.py`. The initial parameters you might use are: chidden_layer_sizes=(512),activation="relu",solcer="adam",alpha=1e-3. You are free to design your own initial params.
 
 Then train the model through:
 ```
 $ python train_mlp.py bof/ 50 labels/train_val.csv weights/mfcc-50.mlp.model
 ```
 
-Fill in the blank left in [test_mlp.py](test_mlp.py) and get your predictions on test set by:
+Fill in the blank left in `test_mlp.py` and get your predictions on test set by:
 ```
 $ python test_mlp.py weights/mfcc-50.mlp.model bof/ 50 labels/test_for_students.csv mfcc-50.mlp.csv
 ```
@@ -107,7 +112,7 @@ mfcc-50.mlp.csv is one of the files you need to upload in your final submission.
 ## Task 3: Extract SoundNet-Global-Pool
 Although bof is a classic and successful method, the combination of big data and deep model has conquered the majority of classification tasks. In this task, we will use the [SoundNet](https://arxiv.org/pdf/1610.09001.pdf) to extract a vector feature representation for each video. You will see the giant improvment brought by this new feature. Meanwhile, we will use pytorch for this task. Since it will also be the major platform for next two assignments, it will be a great opportunity to make your hands dirty if you are not faimiliar with pytorch.
 
-Go to [models/SoundNet.py](models/SoundNet.py). `__init__(self):` is the initialization function of nn.Module class in pytorch. We usually design the structure of the module here. In this task, you need to complete the layer4-6 blocks according to the params provided in the [paper](https://arxiv.org/pdf/1610.09001.pdf). `forward():` is the function that tells the model how to process input data. In this task, you need to complete the processing steps of layer4-6. For the final part you need to finish `load_weights()` where it tells the model how to load params of pretrained weight.
+Go to `models/SoundNet.py`. `__init__(self):` is the initialization function of nn.Module class in pytorch. We usually design the structure of the module here. In this task, you need to complete the layer4-6 blocks according to the params provided in the [paper](https://arxiv.org/pdf/1610.09001.pdf). `forward():` is the function that tells the model how to process input data. In this task, you need to complete the processing steps of layer4-6. For the final part you need to finish `load_weights()` where it tells the model how to load params of pretrained weight.
 
 When using deep learning backbones to extract features, you should be careful about the pre-processing steps of input data. Read the paper carefully, then re-extract audio files and store them under `./mp3`.
 

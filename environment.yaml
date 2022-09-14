@@ -69,4 +69,3 @@ dependencies:
     - tqdm==4.64.1
     - urllib3==1.26.12
     - zipp==3.8.1
-prefix: /home/kevinq/miniconda3/envs/11775
